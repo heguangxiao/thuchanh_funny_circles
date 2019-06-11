@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid gray;"/>
+<script>
+    let canvas_1 = document.getElementById('canvas');
+    canvas_1.width = window.innerWidth - 25;
+    canvas_1.height = window.innerHeight - 25;
+    
+    function circle(x,y) {
+        this.widthCircle = x;
+        this.heightCircle = y;
+        this.radiusCircle = Math.floor(Math.random() * 80);
+    }
+
+    circle.prototype.getRandomHex = function() {
+        return Math.floor(Math.random()*255);
+    }
+
+    circle.prototype.getRandomColor = function(){
+        let red = this.getRandomHex();
+        let green = this.getRandomHex();
+        let blue = this.getRandomHex();
+        return "rgb(" + red + "," + blue + "," + green +")";
+    }
+
+    circle.prototype.createCircle = function (ctx) {
+        ctx.beginPath();
+        ctx.arc(this.widthCircle, this.heightCircle, this.radiusCircle, 0, 2 * Math.PI);
+        ctx.fillStyle = this.getRandomColor();
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    let showTime = function showCircle(){
+        let ctx = document.getElementById("canvas").getContext("2d");
+        let x = Math.random() * (window.innerWidth - 25);
+        let y = Math.random() * (window.innerHeight - 25);
+        let showC;
+        showC = new circle(x, y);
+        showC.createCircle(ctx);
+    }
+
+
+    window.setInterval(showTime,1000);
+
+
+
+</script>
+</body>
+</html>
